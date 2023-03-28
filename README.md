@@ -39,25 +39,26 @@ const input = `citation-js:
     doi: 10.7717/peerj-cs.214
     serial-number: e214
     parent:
-      type: periodical
-      title:
-        value: PeerJ Computer Science
-        verbatim: true
-      volume: 5
-      issn: 2376-5992`
+        type: periodical
+        title:
+            value: PeerJ Computer Science
+            verbatim: true
+        volume: 5
+        issn: 2376-5992`
 
 Cite(input, { forceType: '@hayagriva/file' })
 
 {
-  type: 'article-journal',
   title: 'Citation.js: a format-independent, modular bibliography tool for the browser and command line',
   author: [{ family: 'Willighagen', given: 'Lars G.' }],
   issued: [{ 'date-parts': [[2019, 8, 12]] }],
-  number: 'e214',
   volume: 5,
-  'container-title': '<span class="nocase">PeerJ Computer Science</span>',
   DOI: '10.7717/peerj-cs.214',
-  ISSN: '2376-5992'
+  number: 'e214',
+  ISSN: '2376-5992',
+  type: 'article-journal',
+  'container-title': '<span class="nocase">PeerJ Computer Science</span>',
+  'citation-key': 'citation-js'
 }
 ```
 
