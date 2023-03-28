@@ -18,8 +18,7 @@ describe('hayagriva', function () {
     const n = Math.max(input.length, data.length)
     for (let i = 0; i < n; i++) {
       it(data[i] ? data[i]['citation-key'] : 'test-' + i, function () {
-        const yaml = plugins.input.chainLink(input[i])
-        const parsed = plugins.input.chain(yaml, { forceType: '@hayagriva/file', generateGraph: false })
+        const parsed = plugins.input.chain(input[i], { forceType: '@hayagriva/file', generateGraph: false })
         assert.deepStrictEqual(parsed[0], data[i])
       })
     }
