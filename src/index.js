@@ -1,4 +1,6 @@
 import { plugins } from '@citation-js/core'
+import '@citation-js/plugin-yaml'
+
 import { parse, format } from './mapping.js'
 
 plugins.add('@hayagriva', {

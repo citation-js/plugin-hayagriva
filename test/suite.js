@@ -4,7 +4,6 @@ const path = require('path')
 const assert = require('assert')
 const fs = require('fs')
 const { plugins } = require('@citation-js/core')
-require('@citation-js/plugin-yaml')
 
 require('@babel/register')
 require('../src/')
