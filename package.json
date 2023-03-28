@@ -4,7 +4,7 @@
   "description": "Citation.js plugin for the Hayagriva YAML format used in Typst.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha -r @babel/register test/suite.js",
+    "test": "mocha test/suite.js",
     "babel": "babel src -d lib --copy-files",
     "lint": "standard \"src/**/*.js\" \"test/**/*.js\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
@@ -41,7 +41,8 @@
   },
   "dependencies": {
     "@citation-js/date": "^0.5.0",
-    "@citation-js/name": "^0.4.2"
+    "@citation-js/plugin-bibtex": "^0.6.6",
+    "@citation-js/plugin-yaml": "^0.6.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
