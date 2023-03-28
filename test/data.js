@@ -19,7 +19,7 @@ module.exports = [
     'citation-key': 'wwdc-network',
     'event-title': '<span class="nocase">World Wide Developer Conference 2020</span>',
     'event-title-short': 'WWDC 2020',
-    'publisher': 'Apple Inc.',
+    publisher: 'Apple Inc.',
     'publisher-place': 'Mountain View, CA',
     author: [
       { family: 'Mehta', given: 'Jiten' },

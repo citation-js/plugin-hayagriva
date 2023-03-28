@@ -144,7 +144,7 @@ export function formatTitle (value) {
 
   let sentenceStart = true
   let protectCase = false
-  let stack = []
+  const stack = []
   for (let i = 0; i < tokens.length; i++) {
     if (i % 2 === 0) {
       output.value += tokens[i]
