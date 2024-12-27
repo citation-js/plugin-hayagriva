@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@citation-js/date": "^0.5.0",
-    "@citation-js/plugin-bibtex": "^0.6.6",
+    "@citation-js/plugin-bibtex": "^0.7.0",
     "@citation-js/plugin-yaml": "^0.6.1"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@babel/eslint-parser": "^7.14.3",
     "@babel/preset-env": "^7.12.10",
     "@babel/register": "^7.12.10",
-    "@citation-js/core": "^0.6.0",
+    "@citation-js/core": "^0.7.0",
     "babel-plugin-istanbul": "^6.1.1",
     "conventional-changelog-cli": "^2.1.0",
     "mocha": "^10.2.0",
@@ -58,6 +58,6 @@
     "standard": "^17.0.0"
   },
   "peerDependencies": {
-    "@citation-js/core": "^0.6.0"
+    "@citation-js/core": ">=0.6.0 <0.8"
   }
 }
