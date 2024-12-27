@@ -1,3 +1,7 @@
+## [0.1.2](https://github.com/citation-js/plugin-hayagriva/compare/v0.1.1...v0.1.2) (2024-12-27)
+
+
+
 ## [0.1.1](https://github.com/citation-js/plugin-hayagriva/compare/v0.1.0...v0.1.1) (2023-03-28)
 
 
