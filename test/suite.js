@@ -1,16 +1,19 @@
-/* eslint-env mocha */
+import assert from 'node:assert'
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
+import { describe, it } from 'node:test'
 
-const path = require('path')
-const assert = require('assert')
-const fs = require('fs')
-const { plugins } = require('@citation-js/core')
+import { plugins } from '@citation-js/core'
+import '../src/index.js'
 
-require('@babel/register')
-require('../src/')
+import data from './data.js'
 
-const input = fs.readFileSync(path.join(__dirname, 'input.yml'), 'utf8').split('\n\n')
-const output = fs.readFileSync(path.join(__dirname, 'output.yml'), 'utf8').split('\n\n')
-const data = require('./data.js')
+async function readFile (filePath) {
+  return fs.readFile(path.join(import.meta.dirname, filePath), 'utf8').then(file => file.split('\n\n'))
+}
+
+const input = await readFile('input.yml')
+const output = await readFile('output.yml')
 
 describe('hayagriva', function () {
   describe('parsing', function () {

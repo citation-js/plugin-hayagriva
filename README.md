@@ -14,7 +14,11 @@ npm install @citation-js/plugin-hayagriva
 
 ## Use
 
-Install the plugin by `require`-ing it:
+```js
+import '@citation-js/plugin-hayagriva'
+```
+
+Or install the plugin by `require`-ing it:
 
 ```js
 require('@citation-js/plugin-hayagriva')

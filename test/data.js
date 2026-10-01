@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     'citation-key': 'zygos',
     'container-title': 'Proceedings of the 26th Symposium on Operating Systems Principles',
