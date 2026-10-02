@@ -4,13 +4,12 @@ import { parseName, formatName } from './name.js'
 import { parseTitle, formatTitle } from './title.js'
 
 // Format: Hayagriva
-// Version: 0.1.1
-// Specification: https://github.com/typst/hayagriva/blob/v0.1.1/docs/file-format.md
+// Version: 0.4.0
+// Specification: https://github.com/typst/hayagriva/blob/v0.4.0/docs/file-format.md
 
 // https://regex101.com/r/sEIbDo/1
 const TIMESTAMP_PATTERN = /^([1-9][0-9]*)?[0-9][0-9]:(([0-1][0-9]:|[2][0-3]:)?[0-5][0-9]:)?[0-5][0-9](,[0-9]{4})?$/
 const LANGUAGE_PATTERN = /^[a-z][a-z][a-z]?(-[A-Za-z]+)*$/
-const PAGE_PATTERN = /^\d+(-\d+)?$/
 
 const TYPES = {
   toTarget: {
@@ -28,8 +27,10 @@ const TYPES = {
     newspaper: 'periodical',
     legislation: 'legislation',
     manuscript: 'manuscript',
-    tweet: 'post',
+    original: 'document', // different type of type
+    post: 'post',
     misc: 'document',
+    performance: 'performance',
     periodical: 'periodical',
     proceedings: 'book',
     book: 'book',
@@ -73,10 +74,10 @@ const TYPES = {
     pamphlet: 'misc',
     'paper-conference': 'article',
     patent: 'patent',
-    performance: 'video', // not necessarily a recording, but at least audiovisual
+    performance: 'performance',
     periodical: 'periodical',
     personal_communication: 'misc',
-    post: 'tweet',
+    post: 'post',
     'post-weblog': 'article',
     regulation: 'legislation',
     report: 'report',
@@ -203,23 +204,27 @@ const CONVERTERS = {
   TITLE: {
     toTarget (title) {
       if (typeof title === 'string') {
-        return [title]
+        return [parseTitle(title, {})]
       } else if (title.translation) {
-        return [parseTitle(title.translation, title), title.shorthand, title.value]
+        return [parseTitle(title.translation, title), title.short, title.value]
       } else {
-        return [parseTitle(title.value, title), title.shorthand]
+        return [parseTitle(title.value, title), title.short]
       }
     },
     toSource (title, shortTitle, originalTitle) {
-      const output = formatTitle(title)
+      if (!shortTitle && !originalTitle) {
+        return formatTitle(title)
+      }
+
+      const output = { value: formatTitle(title) }
       if (shortTitle) {
-        output.shorthand = formatTitle(shortTitle).value
+        output.short = formatTitle(shortTitle)
       }
       if (originalTitle) {
         output.translation = output.value
-        output.value = formatTitle(originalTitle).value
+        output.value = formatTitle(originalTitle)
       }
-      return Object.keys(output).length === 1 ? output.value : output
+      return output
     }
   },
   FORMATTABLE_STRING: {
@@ -229,7 +234,25 @@ const CONVERTERS = {
     toSource (value) {
       return value
     }
-  }
+  },
+  IDENTIFIERS: (labels) => ({
+    toTarget (values) {
+      if (typeof values === 'object') {
+        return labels.map(label => values[label])
+      }
+
+      return [values]
+    },
+    toSource (values) {
+      const ids = {}
+      for (let i = 0; i < values.length; i++) {
+        if (values[i]) {
+          ids[labels[i]] = values[i]
+        }
+      }
+      return ids
+    }
+  })
 }
 
 const MAPPING = [
@@ -432,14 +455,7 @@ const MAPPING = [
   },
   {
     source: 'page-range',
-    target: 'page',
-    when: {
-      target: {
-        page (page) {
-          return typeof page === 'number' || (typeof page === 'string' && page.match(PAGE_PATTERN))
-        }
-      }
-    }
+    target: 'page'
   },
   {
     source: 'page-total',
@@ -498,50 +514,58 @@ const MAPPING = [
     }
   },
   {
-    source: 'doi',
+    source: 'serial-number',
+    target: 'number',
+    when: {
+      source: { 'serial-number': (number) => typeof number !== 'object' },
+      target: false
+    }
+  },
+  {
+    source: 'serial-number_serial',
+    target: 'number'
+  },
+  {
+    source: 'serial-number_doi',
     target: 'DOI'
   },
   {
-    source: 'serial-number',
-    target: ['number', 'PMID', 'PMCID'],
-    convert: {
-      toTarget (number) {
-        return [number]
-      },
-      toSource (number, pmid, pmcid) {
-        return number || pmid || pmcid
-      }
-    }
-  },
-  {
-    source: 'isbn',
+    source: 'serial-number_isbn',
     target: 'ISBN',
     when: {
       target: { type (type) { return !NON_STANDALONE_TYPES.includes(type) } }
     }
   },
   {
-    source: 'parent_isbn',
+    source: 'parent_serial-number_isbn',
     target: 'ISBN',
     when: {
-      source: { type: ['chapter', 'anthos'], isbn: false },
+      source: { type: ['chapter', 'anthos'], 'serial-number_isbn': false },
       target: { type: NON_STANDALONE_TYPES }
     }
   },
   {
-    source: 'issn',
+    source: 'serial-number_issn',
     target: 'ISSN',
     when: {
       target: { type (type) { return !NON_STANDALONE_TYPES.includes(type) } }
     }
   },
   {
-    source: 'parent_issn',
+    source: 'parent_serial-number_issn',
     target: 'ISSN',
     when: {
-      source: { issn: false },
+      source: { 'serial-number_issn': false },
       target: { type: NON_STANDALONE_TYPES }
     }
+  },
+  {
+    source: 'serial-number_pmid',
+    target: 'PMID'
+  },
+  {
+    source: 'serial-number_pmcid',
+    target: 'PMCID'
   },
   {
     source: 'language',
@@ -700,7 +724,60 @@ const MAPPING = [
 
 // TODO repository-source
 
-const converter = new util.Translator(MAPPING)
+const DEPRECATED_MAPPINGS = [
+  // Removed in 0.4.0
+  {
+    source: 'doi',
+    target: 'DOI',
+    when: {
+      source: { 'serial-number_doi': false },
+      target: false
+    }
+  },
+  {
+    source: 'isbn',
+    target: 'ISBN',
+    when: {
+      source: { 'serial-number_isbn': false },
+      target: false
+    }
+  },
+  {
+    source: 'parent_isbn',
+    target: 'ISBN',
+    when: {
+      source: {
+        type: ['chapter', 'anthos'],
+        'parent_serial-number_isbn': false,
+        'serial-number_isbn': false,
+        isbn: false
+      },
+      target: false
+    }
+  },
+  {
+    source: 'issn',
+    target: 'ISSN',
+    when: {
+      source: { 'serial-number_issn': false },
+      target: false
+    }
+  },
+  {
+    source: 'parent_issn',
+    target: 'ISSN',
+    when: {
+      source: {
+        'parent_serial-number_issn': false,
+        'serial-number_issn': false,
+        issn: false
+      },
+      target: false
+    }
+  }
+]
+
+const converter = new util.Translator(MAPPING.concat(DEPRECATED_MAPPINGS))
 
 function flattenRecord (record) {
   record = { ...record }
@@ -716,6 +793,11 @@ function flattenRecord (record) {
       record.parent_type = DEFAULT_PARENT_TYPES[record.type]
     }
   }
+  if (record['serial-number']) {
+    for (const key in record['serial-number']) {
+      record['serial-number_' + key] = record['serial-number'][key]
+    }
+  }
   return record
 }
 
@@ -727,12 +809,18 @@ function parseRecord (record, key) {
 
 function unflattenRecord (record) {
   let hasParent = false
+  let hasSerialNumber = false
 
   const parent = {}
+  const serialNumber = {}
   for (const key in record) {
     if (key.startsWith('parent_')) {
       hasParent = true
       parent[key.slice(7)] = record[key]
+      delete record[key]
+    } else if (key.startsWith('serial-number_')) {
+      hasSerialNumber = true
+      serialNumber[key.slice(14)] = record[key]
       delete record[key]
     }
   }
@@ -746,6 +834,14 @@ function unflattenRecord (record) {
       }
     }
     record.parent = unflattenRecord(parent)
+  }
+
+  if (hasSerialNumber) {
+    if (Object.keys(serialNumber).length === 1 && serialNumber.serial) {
+      record['serial-number'] = serialNumber.serial
+    } else {
+      record['serial-number'] = serialNumber
+    }
   }
 
   return record

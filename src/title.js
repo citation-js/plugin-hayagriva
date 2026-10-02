@@ -69,11 +69,7 @@ function toSentenceCase (word, sentenceStart) {
   return word.toLowerCase()
 }
 
-export function parseTitle (value, context) {
-  if (!context['sentence-case'] && !context['title-case']) {
-    return context.verbatim === true ? `<span class="nocase">${value}</span>` : value
-  }
-
+function parseDeprecatedTitle (value, context) {
   const tokens = value.split(/(\p{L}+)/gu)
   const protectTokenCase = Array(tokens.length).fill(false)
 
@@ -119,7 +115,7 @@ export function parseTitle (value, context) {
     }
 
     if (protectTokenCase[i] && !protectTokenCase[i - 2]) {
-      title += '<span class="nocase">'
+      title += START_NOCASE
     }
 
     title += tokens[i]
@@ -132,55 +128,39 @@ export function parseTitle (value, context) {
   return title
 }
 
-export function formatTitle (value) {
-  const tokens = value.split(/(<\/?(?:span|i|b|sup|sub).*?>|\p{L}+)/gu)
-  const output = {
-    value: '',
-    'sentence-case': '',
-    'title-case': ''
-  }
-  let includeSentenceCase = false
-  let includeTitleCase = false
+const START_NOCASE = '<span class="nocase">'
+const END_NOCASE = '</span>'
 
-  let sentenceStart = true
-  let protectCase = false
+export function parseTitle (value, context) {
+  if (context['sentence-case'] || context['title-case']) {
+    // Deprecated, removed in 0.4.0
+    return parseDeprecatedTitle(value, context)
+  } else if (context.verbatim) {
+    return `${START_NOCASE}${value}${END_NOCASE}`
+  } else {
+    return value.replace(/\{/g, START_NOCASE).replace(/\}/g, END_NOCASE)
+  }
+}
+
+export function formatTitle (value) {
+  const tokens = value.split(/(<\/?(?:span|i|b|sup|sub).*?>)/g)
+  let output = ''
+
   const stack = []
   for (let i = 0; i < tokens.length; i++) {
     if (i % 2 === 0) {
-      output.value += tokens[i]
-      output['sentence-case'] += tokens[i]
-      output['title-case'] += tokens[i]
-
-      if (tokens[i].match(SENTENCE_RESTART_PATTERN)) {
-        sentenceStart = true
+      output += tokens[i]
+    } else if (tokens[i][1] === '/') {
+      const openTag = stack.pop()
+      if (openTag === START_NOCASE) {
+        output += '}'
       }
-    } else if (tokens[i].startsWith('<')) {
-      if (tokens[i].startsWith('</')) {
-        stack.pop()
-      } else {
-        stack.push(tokens[i])
-      }
-      protectCase = stack.includes('<span class="nocase">')
     } else {
-      output.value += tokens[i]
-      output['sentence-case'] += protectCase ? tokens[i] : toSentenceCase(tokens[i], sentenceStart)
-      output['title-case'] += protectCase ? tokens[i] : toTitleCase(tokens[i], sentenceStart)
-      sentenceStart = false
-
-      if (protectCase && tokens[i] !== toSentenceCase(tokens[i], sentenceStart)) {
-        includeSentenceCase = true
-      }
-      if (protectCase && tokens[i] !== toTitleCase(tokens[i], sentenceStart)) {
-        includeTitleCase = true
+      stack.push(tokens[i])
+      if (tokens[i] === START_NOCASE) {
+        output += '{'
       }
     }
-  }
-
-  if (!includeSentenceCase) {
-    delete output['sentence-case']
-  }
-  if (!includeTitleCase) {
-    delete output['title-case']
   }
 
   return output

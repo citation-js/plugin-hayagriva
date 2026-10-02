@@ -4,13 +4,11 @@ zygos:
         - Prekas, George
         - Kogias, Marios
         - Bugnion, Edouard
-    title:
-        value: "ZygOS: Achieving Low Tail Latency for Microsecond-Scale Networked Tasks"
-        sentence-case: "ZygOS: Achieving low tail latency for microsecond-scale networked tasks"
-        title-case: "ZygOS: Achieving Low Tail Latency for Microsecond-Scale Networked Tasks"
+    title: "{ZygOS}: Achieving Low Tail Latency for Microsecond-Scale Networked Tasks"
     date: 2017
     page-range: 325-341
-    doi: 10.1145/3132747.3132780
+    serial-number:
+        doi: 10.1145/3132747.3132780
     parent:
         type: proceedings
         title: Proceedings of the 26th Symposium on Operating Systems Principles
@@ -31,23 +29,18 @@ wwdc-network:
         parent:
             type: conference
             title:
-                value: World Wide Developer Conference 2020
-                sentence-case: World Wide Developer Conference 2020
-                shorthand: WWDC 2020
+                value: "{World Wide Developer Conference 2020}"
+                short: WWDC 2020
 
 omarova-libra:
     type: article
     author: ["Omarova, Saule", "Steele, Graham"]
-    title:
-        value: There’s a Lot We Still Don’t Know About Libra
-        sentence-case: There’s a lot we still don’t know about Libra
+    title: There’s a Lot We Still Don’t Know About {Libra}
     date: 2019-11-04
     url: https://www.nytimes.com/2019/11/04/opinion/facebook-libra-cryptocurrency.html
     parent:
         type: newspaper
-        title:
-            value: The New York Times
-            sentence-case: The New York Times
+        title: "{The New York Times}"
         location: "New York, NY, USA"
 
 donne:
@@ -68,7 +61,7 @@ swedish:
     editor: Brown, George C.
     title:
         value: "A Swedish Traveller in Early Wisconcin: The Observations of Fredrika Bremer"
-        shorthand: Swedish Traveller
+        short: Swedish Traveller
     date: 1978
     edition: 2
     parent:
@@ -86,7 +79,7 @@ harry:
         author: Rowling, J. K.
         volume: 5
         volume-total: 7
-        isbn: 978-0747551003
+        serial-number: { isbn: 978-0747551003 }
         page-total: 768
         date: 2003-06-21
 
@@ -146,15 +139,14 @@ kinetics:
     type: article
     title: Kinetics and luminescence of the excitations of a nonequilibrium polariton condensate
     author: ["Doan, T. D.", "Tran Thoai, D. B.", "Haug, Hartmut"]
-    doi: 10.1103/PhysRevB.102.165126
+    serial-number:
+        doi: 10.1103/PhysRevB.102.165126
     page-total: 13
     page-range: 165126-165139
     date: 2020-10-14
     parent:
         type: periodical
-        title:
-            value: Physical Review B
-            sentence-case: Physical Review B
+        title: "{Physical Review B}"
         volume: 102
         issue: 16
         publisher: American Physical Society
@@ -163,15 +155,13 @@ house:
     type: article
     title: Teaching medicine with the help of "Dr. House"
     author: ["Jerrentrup, Andreas", "Mueller, Tobias", "Glowalla, Ulrich", "Herder, Meike", "Henrichs, Nadine", "Neubauer, Andreas", "Schaefer, Juergen R."]
-    doi: 10.1371/journal.pone.0193972
+    serial-number:
+        doi: 10.1371/journal.pone.0193972
+        serial: e0193972
     date: 2018-03-13
-    serial-number: e0193972
     parent:
         type: periodical
-        title:
-            value: PLoS ONE
-            sentence-case: PLoS ONE
-            title-case: PLoS ONE
+        title: "{PLoS ONE}"
         volume: 13
         issue: 3
 
@@ -222,7 +212,7 @@ gedanken:
         editor: ["Shannon, C. E.", "McCarthy, J."]
         volume: 34
         date: 1956-04
-        isbn: 978-0-691-07916-5
+        serial-number: { isbn: 978-0-691-07916-5 }
         location: Princeton, NJ, USA
         publisher: NBS
         parent:
@@ -230,7 +220,7 @@ gedanken:
             title: Annals of Mathematics Studies
 
 georgia:
-    type: tweet
+    type: post
     author: Silver, Nate
     title: Trump's claim to have won Georgia is highly dubious. No network has called it. He's only ahead by 2.5 points there, and the outstanding votes are mostly mail votes in very blue counties, likely very Democratic. Biden may even be a slight favorite there.
     url: https://twitter.com/NateSilver538/status/1323889051037028353
@@ -286,7 +276,7 @@ un-hdr:
     author: United Nations Development Programme
     title: Human Development Report 2019
     location: New York
-    issn: 2412-3129
+    serial-number: { issn: 2412-3129 }
     url: http://hdr.undp.org/sites/default/files/hdr2019.pdf
     date: 2019
 
@@ -351,7 +341,7 @@ roe-wade:
 foia:
     type: legislation
     title: Freedom of Information Act
-    serial-number : Pub. L. No. 107-296, 80 Stat. 250
+    serial-number: Pub. L. No. 107-296, 80 Stat. 250
     date: 1967
 
 overleaf:
@@ -367,7 +357,8 @@ overleaf:
 latex-users:
     type: article
     title: How many scholarly articles are written in LaTeX?
-    doi: 10.22541/au.148771883.35456290
+    serial-number:
+        doi: 10.22541/au.148771883.35456290
     author: Pepe, Alberto
     date: 2017-02-21
     parent:

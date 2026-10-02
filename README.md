@@ -1,10 +1,10 @@
 Citation.js plugin for the [Hayagriva](https://github.com/typst/hayagriva)
-YAML format (v0.1.1) used in [Typst](https://typst.app/).
+YAML format (v0.4.0) used in [Typst](https://typst.app/).
 
 [![NPM version](https://img.shields.io/npm/v/@citation-js/plugin-hayagriva.svg)](https://npmjs.org/package/@citation-js/plugin-hayagriva)
 [![Codecov](https://img.shields.io/codecov/c/gh/citation-js/plugin-hayagriva)](https://app.codecov.io/gh/citation-js/plugin-hayagriva)
 [![NPM total downloads](https://img.shields.io/npm/dt/@citation-js/plugin-hayagriva.svg)](https://npmcharts.com/compare/@citation-js%2Fplugin-hayagriva?minimal=true)
-![License](https://img.shields.io/npm/l/@citation-js/plugin-hayagriva.svg)
+[![License](https://img.shields.io/npm/l/@citation-js/plugin-hayagriva.svg)](https://github.com/citation-js/plugin-hayagriva/blob/main/LICENSE)
 
 ## Install
 
