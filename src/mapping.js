@@ -4,7 +4,7 @@ import { parseName, formatName } from './name.js'
 import { parseTitle, formatTitle } from './title.js'
 
 // Format: Hayagriva
-// Version: 0.4.0
+// Version: 0.5.2
 // Specification: https://github.com/typst/hayagriva/blob/v0.4.0/docs/file-format.md
 
 // https://regex101.com/r/sEIbDo/1
@@ -588,18 +588,25 @@ const MAPPING = [
     target: 'archive-place',
     convert: CONVERTERS.FORMATTABLE_STRING
   },
+  {
+    source: 'abstract',
+    target: 'abstract'
+  },
+  {
+    source: 'annote',
+    target: 'annote'
+  },
+  {
+    source: 'genre',
+    target: 'genre'
+  },
   // Hayagriva does not have dedicated fields for the genre (subtype) and medium
   // of records. Since these are all plain-text fields, the input cannot be distinguished.
   {
     source: 'note',
-    target: ['annote', 'genre', 'medium'],
-    convert: {
-      toTarget (note) {
-        return [note]
-      },
-      toSource (note, genre, medium) {
-        return genre || medium || note
-      }
+    target: 'medium',
+    when: {
+      source: false
     }
   },
   // Handling parent entries (badly)
