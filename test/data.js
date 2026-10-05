@@ -61,8 +61,8 @@ export default [
   },
   {
     'citation-key': 'swedish',
-    'container-title': 'Wisconcin Magazine of History',
-    title: 'A Swedish Traveller in Early Wisconcin: The Observations of Fredrika Bremer',
+    'container-title': 'Wisconsin Magazine of History',
+    title: 'A Swedish Traveller in Early Wisconsin: The Observations of Fredrika Bremer',
     'title-short': 'Swedish Traveller',
     edition: 2,
     editor: [
@@ -444,5 +444,53 @@ export default [
     publisher: 'MVG',
     title: 'Den Boden unter den Füßen verlieren',
     type: 'book'
+  },
+  {
+    'chapter-number': 20,
+    'citation-key': 'lamb',
+    author: [
+      { family: 'Kell-Nehrer', given: 'Felips' }
+    ],
+    issued: { 'date-parts': [[2011]] },
+    page: '22-23',
+    title: 'The life of a friendly lamb',
+    type: 'book',
+    volume: 10
+  },
+  {
+    'chapter-number': '2A',
+    'citation-key': 'snail',
+    author: [
+      { family: 'Kell-Nehrer', given: 'Felips' }
+    ],
+    issued: { 'date-parts': [[2011]] },
+    page: 28,
+    title: 'A Snail Study',
+    type: 'book',
+    volume: '4B'
+  },
+  {
+    'chapter-number': 3,
+    'citation-key': 'lamb-chapter',
+    'container-author': [
+      { family: 'Kell-Nehrer', given: 'Felips' }
+    ],
+    'container-title': 'The life of a friendly lamb',
+    issued: { 'date-parts': [[2011]] },
+    page: '10-12',
+    type: 'chapter',
+    volume: 10
+  },
+  {
+    'citation-key': 'snail-chapter',
+    'container-author': [
+      { family: 'Kell-Nehrer', given: 'Felips' }
+    ],
+    'container-title': 'A Snail Study',
+    issued: { 'date-parts': [[2011]] },
+    number: 3,
+    page: '10-12',
+    type: 'chapter',
+    volume: '4B'
   }
 ]
