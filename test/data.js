@@ -20,7 +20,7 @@ export default [
     'event-title': '<span class="nocase">World Wide Developer Conference 2020</span>',
     'event-title-short': 'WWDC 2020',
     publisher: 'Apple Inc.',
-    'publisher-place': 'Mountain View, CA',
+    'event-place': 'Mountain View, CA',
     author: [
       { family: 'Mehta', given: 'Jiten' },
       { family: 'Kinnear', given: 'Eric' }
@@ -139,12 +139,15 @@ export default [
   },
   {
     'citation-key': 'wire',
+    // From Wikipedia, the free encyclopedia: https://en.wikipedia.org/wiki/The_Wire
+    abstract: 'The Wire is an American crime drama television series created and\nprimarily written by American author and former police reporter David\nSimon. The series was broadcast by the cable network HBO in the United\nStates. The Wire premiered on June 2, 2002, and ended on March 9, 2008,\ncomprising sixty episodes over five seasons. The idea for the show\nstarted out as a police drama loosely based on the experiences of\nSimon\'s writing partner Ed Burns, a former homicide detective and\npublic school teacher.\n',
     'executive-producer': [
       { family: 'Simon', given: 'David' },
       { family: 'Colesberry', given: 'Robert F.' },
       { family: 'Noble', given: 'Nina Kostroff' }
     ],
     'number-of-volumes': 5,
+    genre: 'Drama',
     issued: { 'date-parts': [[2002]] },
     publisher: 'Blown Deadline Productions',
     title: 'The wire',
@@ -199,7 +202,7 @@ export default [
   },
   {
     'citation-key': 'oiseau',
-    'publisher-place': 'Lyon, France',
+    'event-place': 'Lyon, France',
     URL: 'https://www.museedesconfluences.fr/fr/evenements/l%E2%80%99oiseau-rare-de-l%E2%80%99hirondelle-au-kakapo',
     accessed: { 'date-parts': [[2020, 11, 4]] },
     issued: { 'date-parts': [[2020, 12, 18]] },

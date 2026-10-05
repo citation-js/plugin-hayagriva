@@ -4,7 +4,7 @@ import { parseName, formatName } from './name.js'
 import { parseTitle, formatTitle } from './title.js'
 
 // Format: Hayagriva
-// Version: 0.5.2
+// Version: 0.6.0
 // Specification: https://github.com/typst/hayagriva/blob/v0.4.0/docs/file-format.md
 
 // https://regex101.com/r/sEIbDo/1
@@ -232,7 +232,30 @@ const CONVERTERS = {
       return typeof value === 'string' ? value : value.value
     },
     toSource (value) {
-      return value
+      return formatTitle(value)
+    }
+  },
+  PUBLISHER: {
+    toTarget (value) {
+      if (typeof value === 'string') {
+        return [value]
+      } else {
+        return [
+          value.name && CONVERTERS.FORMATTABLE_STRING.toTarget(value.name),
+          value.name && CONVERTERS.FORMATTABLE_STRING.toTarget(value.location)
+        ]
+      }
+    },
+    toSource (publisher, place) {
+      if (place) {
+        const result = { location: formatTitle(place) }
+        if (publisher) {
+          result.name = formatTitle(publisher)
+        }
+        return result
+      } else if (publisher) {
+        return formatTitle(publisher)
+      }
     }
   },
   IDENTIFIERS: (labels) => ({
@@ -343,8 +366,8 @@ const MAPPING = [
   },
   {
     source: 'publisher',
-    target: 'publisher',
-    convert: CONVERTERS.FORMATTABLE_STRING,
+    target: ['publisher', 'publisher-place'],
+    convert: CONVERTERS.PUBLISHER,
     when: {
       source: { organization: false },
       target: { type (type) { return !NON_STANDALONE_TYPES.includes(type) } }
@@ -352,8 +375,8 @@ const MAPPING = [
   },
   {
     source: 'parent_publisher',
-    target: 'publisher',
-    convert: CONVERTERS.FORMATTABLE_STRING,
+    target: ['publisher', 'publisher-place'],
+    convert: CONVERTERS.PUBLISHER,
     when: {
       source: { publisher: false, organization: false },
       target: { type: NON_STANDALONE_TYPES }
@@ -361,19 +384,29 @@ const MAPPING = [
   },
   {
     source: 'location',
-    target: 'publisher-place',
+    target: 'event-place',
     convert: CONVERTERS.FORMATTABLE_STRING,
     when: {
-      target: { type (type) { return !NON_STANDALONE_TYPES.includes(type) } }
+      source: { type: ['performance', 'exhibition', 'conference'] },
+      target: { type: ['performance', 'event'] }
     }
   },
   {
     source: 'parent_location',
-    target: 'publisher-place',
+    target: 'event-place',
     convert: CONVERTERS.FORMATTABLE_STRING,
     when: {
-      source: { location: false },
-      target: { type: NON_STANDALONE_TYPES }
+      source: { parent_type: 'conference',  location: false },
+      target: false
+    }
+  },
+  {
+    source: 'parent_parent_location',
+    target: 'event-place',
+    convert: CONVERTERS.FORMATTABLE_STRING,
+    when: {
+      source: { parent_parent_type: 'conference',  parent_location: false, location: false },
+      target: { type: ['speech', 'paper-conference'] }
     }
   },
   {
@@ -593,10 +626,6 @@ const MAPPING = [
     target: 'abstract'
   },
   {
-    source: 'annote',
-    target: 'annote'
-  },
-  {
     source: 'genre',
     target: 'genre'
   },
@@ -604,7 +633,12 @@ const MAPPING = [
   // of records. Since these are all plain-text fields, the input cannot be distinguished.
   {
     source: 'note',
-    target: 'medium',
+    target: ['annote', 'medium'],
+    convert: {
+      toSource (annote, medium) {
+        return annote || medium
+      }
+    },
     when: {
       source: false
     }
@@ -778,6 +812,33 @@ const DEPRECATED_MAPPINGS = [
         'parent_serial-number_issn': false,
         'serial-number_issn': false,
         issn: false
+      },
+      target: false
+    }
+  },
+  // Removed in 0.6.0
+  {
+    source: 'location',
+    target: 'publisher-place',
+    convert: CONVERTERS.FORMATTABLE_STRING,
+    when: {
+      source: {
+        type: type => !['speech', 'performance', 'exhibition', 'conference'].includes(type),
+        publisher: value => !value || !value.location,
+        parent_publisher: value => !value || !value.location
+      },
+      target: false
+    }
+  },
+  {
+    source: 'parent_location',
+    target: 'publisher-place',
+    convert: CONVERTERS.FORMATTABLE_STRING,
+    when: {
+      source: {
+        parent_type: 'newspaper',
+        publisher: value => !value || !value.location,
+        parent_publisher: value => !value || !value.location
       },
       target: false
     }

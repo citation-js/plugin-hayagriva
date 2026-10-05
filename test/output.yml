@@ -12,8 +12,9 @@ zygos:
     parent:
         type: proceedings
         title: Proceedings of the 26th Symposium on Operating Systems Principles
-        publisher: Association for Computing Machinery
-        location: New York, NY, USA
+        publisher:
+            name: Association for Computing Machinery
+            location: New York, NY, USA
         parent:
             type: conference
 
@@ -25,9 +26,9 @@ wwdc-network:
     parent:
         type: proceedings
         publisher: Apple Inc.
-        location: Mountain View, CA
         parent:
             type: conference
+            location: Mountain View, CA
             title:
                 value: "{World Wide Developer Conference 2020}"
                 short: WWDC 2020
@@ -41,16 +42,18 @@ omarova-libra:
     parent:
         type: newspaper
         title: "{The New York Times}"
-        location: "New York, NY, USA"
+        publisher:
+          location: "New York, NY, USA"
 
 donne:
     type: book
     title: The "Anniversaries" and the "Epicedes and Obsequies"
     author: Donne, John
     editor: ["Stringer, Gary A.", "Pebworth, Ted-Larry"]
-    location: Bloomington
     volume: 6
-    publisher: Indiana University Press
+    publisher:
+        name: Indiana University Press
+        location: Bloomington
     date: 1995
     parent:
         type: misc
@@ -130,6 +133,17 @@ wire:
     title: The wire
     date: 2002
     publisher: Blown Deadline Productions
+    # From Wikipedia, the free encyclopedia: https://en.wikipedia.org/wiki/The_Wire
+    abstract: |
+        The Wire is an American crime drama television series created and
+        primarily written by American author and former police reporter David
+        Simon. The series was broadcast by the cable network HBO in the United
+        States. The Wire premiered on June 2, 2002, and ended on March 9, 2008,
+        comprising sixty episodes over five seasons. The idea for the show
+        started out as a police drama loosely based on the experiences of
+        Simon's writing partner Ed Burns, a former homicide detective and
+        public school teacher.
+    genre: Drama
     volume-total: 5
     affiliated:
         - role: executive-producer
@@ -168,8 +182,9 @@ house:
 plaque:
     type: misc
     title: Informational plaque about Jacoby's 1967 photos
-    publisher: Stiftung Reinbeckhallen
-    location: Berlin, Germany
+    publisher:
+        name: Stiftung Reinbeckhallen
+        location: Berlin, Germany
     date: 2020
     parent:
         type: misc
@@ -213,8 +228,9 @@ gedanken:
         volume: 34
         date: 1956-04
         serial-number: { isbn: 978-0-691-07916-5 }
-        location: Princeton, NJ, USA
-        publisher: NBS
+        publisher:
+          name: NBS
+          location: Princeton, NJ, USA
         parent:
             type: misc
             title: Annals of Mathematics Studies
@@ -275,7 +291,8 @@ un-hdr:
     type: report
     author: United Nations Development Programme
     title: Human Development Report 2019
-    location: New York
+    publisher:
+      location: New York
     serial-number: { issn: 2412-3129 }
     url: http://hdr.undp.org/sites/default/files/hdr2019.pdf
     date: 2019
@@ -300,8 +317,9 @@ drill:
     title: Drill
     author: Steyerl, Hito
     date: 2019-06-20
-    location: New York
-    publisher: Thompson Arts Center
+    publisher:
+        name: Thompson Arts Center
+        location: New York
 
 camb:
     type: entry
@@ -377,6 +395,7 @@ barb:
     title: Den Boden unter den Füßen verlieren
     author: Günther-Haug, Barbara
     date: 2020
-    publisher: MVG
-    location: München
+    publisher:
+        name: MVG
+        location: München
     language: de-DE

@@ -12,8 +12,9 @@ zygos:
     parent:
         - type: Proceedings
           title: Proceedings of the 26th Symposium on Operating Systems Principles
-          publisher: Association for Computing Machinery
-          location: New York, NY, USA
+          publisher:
+              name: Association for Computing Machinery
+              location: New York, NY, USA
           serial-number: { isbn: "978-1450350853" }
 
 wwdc-network:
@@ -52,9 +53,10 @@ donne:
     title: The "Anniversaries" and the "Epicedes and Obsequies"
     author: Donne, John
     editor: ["Stringer, Gary A.", "Pebworth, Ted-Larry"]
-    location: Bloomington
     volume: 6
-    publisher: Indiana University Press
+    publisher:
+      name: Indiana University Press
+      location: Bloomington
     date: 1995
     parent:
         type: Book
@@ -144,6 +146,18 @@ wire:
     date: 2002
     publisher: Blown Deadline Productions
     volume-total: 5
+    # From Wikipedia, the free encyclopedia: https://en.wikipedia.org/wiki/The_Wire
+    abstract: |
+        The Wire is an American crime drama television series created and
+        primarily written by American author and former police reporter David
+        Simon. The series was broadcast by the cable network HBO in the United
+        States. The Wire premiered on June 2, 2002, and ended on March 9, 2008,
+        comprising sixty episodes over five seasons. The idea for the show
+        started out as a police drama loosely based on the experiences of
+        Simon's writing partner Ed Burns, a former homicide detective and
+        public school teacher.
+    note: The Wire is noted to be solid
+    genre: Drama
     affiliated:
         - role: executive-producer
           names: ["Simon, David", "Colesberry, Robert F.", "Noble, Nina Kostroff"]
@@ -183,8 +197,9 @@ house:
 plaque:
     type: Misc
     title: Informational plaque about Jacoby's 1967 photos
-    publisher: Stiftung Reinbeckhallen
-    location: Berlin, Germany
+    publisher:
+        name: Stiftung Reinbeckhallen
+        location: Berlin, Germany
     date: 2020
     parent:
         type: Artwork
@@ -234,8 +249,9 @@ gedanken:
         volume: 34
         date: 1956-04
         serial-number: { isbn: 978-0-691-07916-5 }
-        location: Princeton, NJ, USA
-        publisher: NBS
+        publisher:
+            name: NBS
+            location: Princeton, NJ, USA
         parent:
             type: Anthology
             title: Annals of Mathematics Studies
@@ -399,6 +415,7 @@ barb:
     title: Den Boden unter den Füßen verlieren
     author: Günther-Haug, Barbara
     date: 2020
-    publisher: MVG
-    location: München
+    publisher:
+        name: MVG
+        location: München
     language: de-DE
