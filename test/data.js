@@ -73,19 +73,19 @@ export default [
     volume: '1-2'
   },
   {
-    'citation-key': 'harry',
-    'number-of-volumes': 7,
-    'number-of-pages': 768,
-    'container-title': 'Harry Potter and the Order of the Phoenix',
+    'citation-key': 'inheritance',
+    'number-of-volumes': 4,
+    'number-of-pages': 860,
+    'container-title': 'Inheritance',
     'container-author': [
-      { family: 'Rowling', given: 'J. K.' }
+      { family: 'Paolini', given: 'Christopher' }
     ],
-    ISBN: '978-0747551003',
-    issued: { 'date-parts': [[2003, 6, 21]] },
-    number: 3, // part-number would be better, but that cannot be represented
-    page: '135-139',
+    ISBN: '978-0375856112',
+    issued: { 'date-parts': [[2011, 11, 8]] },
+    number: 14, // part-number would be better, but that cannot be represented
+    page: '218-231',
     type: 'chapter',
-    volume: 5
+    volume: 4
   },
   {
     'citation-key': 'science-e-issue',

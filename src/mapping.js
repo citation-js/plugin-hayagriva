@@ -4,7 +4,7 @@ import { parseName, formatName } from './name.js'
 import { parseTitle, formatTitle } from './title.js'
 
 // Format: Hayagriva
-// Version: 0.9.0
+// Version: 0.10.1
 // Specification: https://github.com/typst/hayagriva/blob/v0.4.0/docs/file-format.md
 
 // https://regex101.com/r/sEIbDo/1
