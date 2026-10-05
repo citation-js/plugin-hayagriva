@@ -108,9 +108,5 @@ declare module '@citation-js/core' {
           | ((options?: { asObject?: false }) => string)
       }
     }
-
-    namespace config {
-      export function get (ref: '@bibtex'): BibtexConfig
-    }
   }
 }

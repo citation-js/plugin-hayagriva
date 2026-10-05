@@ -396,7 +396,7 @@ const MAPPING = [
     target: 'event-place',
     convert: CONVERTERS.FORMATTABLE_STRING,
     when: {
-      source: { parent_type: 'conference',  location: false },
+      source: { parent_type: 'conference', location: false },
       target: false
     }
   },
@@ -405,7 +405,7 @@ const MAPPING = [
     target: 'event-place',
     convert: CONVERTERS.FORMATTABLE_STRING,
     when: {
-      source: { parent_parent_type: 'conference',  parent_location: false, location: false },
+      source: { parent_parent_type: 'conference', parent_location: false, location: false },
       target: { type: ['speech', 'paper-conference'] }
     }
   },
